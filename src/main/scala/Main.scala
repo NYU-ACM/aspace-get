@@ -19,7 +19,7 @@ import org.json4s._
 import org.json4s.native.JsonMethods._
 
 object Main extends App {
-	
+
   implicit val formats = DefaultFormats
   val conf = ConfigFactory.load()
   val host = conf.getString("host.url")
@@ -31,16 +31,16 @@ object Main extends App {
   get(args(0))
 
   def getKey(): String = {
-  	val authenticate = RequestBuilder.post().setUri(new URI(url + "/users/" + conf.getString("host.username") + "/login")).addParameter("password", conf.getString("host.password")).build
-  	val response = client.execute(authenticate)
-  	val entity = response.getEntity
-	  val content = entity.getContent
-	  val data = scala.io.Source.fromInputStream(content).mkString
-	  val jarray = parse(data)
-	  val askey = (jarray \ "session").extract[String]
-	  EntityUtils.consume(entity)
-	  response.close
-	  askey 
+    val authenticate = RequestBuilder.post().setUri(new URI(url + "/users/" + conf.getString("host.username") + "/login")).addParameter("password", conf.getString("host.password")).build
+    val response = client.execute(authenticate)
+    val entity = response.getEntity
+    val content = entity.getContent
+    val data = scala.io.Source.fromInputStream(content).mkString
+    val jarray = parse(data)
+    val askey = (jarray \ "session").extract[String]
+    EntityUtils.consume(entity)
+    response.close
+    askey 
   }
 
   def get(g: String) {
