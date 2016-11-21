@@ -1,0 +1,6 @@
+host {
+  url="url"
+  port="port"
+  username="username"
+  password="password"
+}
